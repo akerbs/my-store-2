@@ -8,7 +8,8 @@ import Typography from "@material-ui/core/Typography"
 // import Coupon from "./Coupon"
 import Slide from "@material-ui/core/Slide"
 import Fade from "@material-ui/core/Fade"
-import { LanguageContext } from "../../context/LanguageContext"
+// import { LanguageContext } from "../../context/LanguageContext"
+import { LanguageContext } from "../../components/layout"
 
 const useStyles = makeStyles(theme => ({
   btnWrapper: {
