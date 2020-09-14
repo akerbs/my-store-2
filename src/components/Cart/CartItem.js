@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     display: " inline-block",
     overflow: "hidden",
     transform: "translateZ(0)",
-    borderRadius: "8%",
+    borderRadius: "5%",
     // maskImage: "radial-gradient(white, black)",
     // borderRadius: "100%",
   },

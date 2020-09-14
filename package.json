@@ -17,6 +17,7 @@
     "gatsby-plugin-offline": "^3.2.26",
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-sharp": "^2.6.31",
+    "gatsby-plugin-smoothscroll": "^1.2.0",
     "gatsby-source-filesystem": "^2.3.27",
     "gatsby-source-stripe": "^3.1.1",
     "gatsby-transformer-sharp": "^2.5.14",
@@ -31,6 +32,7 @@
     "react-transition-group": "^4.4.1",
     "simple-react-lightbox": "^3.3.4-1",
     "swiper": "^6.1.2",
+    "uninstall": "0.0.0",
     "use-shopping-cart": "^2.1.0",
     "yup": "^0.29.3"
   },

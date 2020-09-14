@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import "./layout.css"
+import { makeStyles } from "@material-ui/core/styles"
 import { ThemeProvider } from "@material-ui/core/styles"
 import theme from "./theme"
 import "@stripe/stripe-js" // https://github.com/stripe/stripe-js#import-as-a-side-effect
@@ -17,6 +18,8 @@ import { DrawerMenuContextProvider } from "../context/DrawerMenuContext"
 import { LanguageContextProvider } from "../context/LanguageContext"
 import { LanguageContext } from "../context/LanguageContext"
 
+const useStyles = makeStyles(theme => ({}))
+
 // const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLISHABLE_KEY)
 const stripePromise = loadStripe(
   "pk_test_51HGUuRHwITO0GSJr0YK6FwbE17LUTst9UCvm2uH0RdjBtAnQJqgPmDn0BSunRc8FIEXRW3HatsFd1uDHkfaGJtUm00IA2780Iw"
@@ -24,6 +27,7 @@ const stripePromise = loadStripe(
 export const CurrencyContext = createContext()
 
 function Layout({ children }) {
+  const classes = useStyles()
   // { actCurrency, handleCurrencyChange } = useContext(CurrencyContext)
 
   const data = useStaticQuery(graphql`

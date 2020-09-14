@@ -72,12 +72,21 @@ const SkuCard = ({ sku }, props) => {
   //   setOpenSnackbar(false)
   // }
 
+  const LinkToProductPage =
+    sku.name === "Funny Bunny"
+      ? "funny-bunny"
+      : sku.name === "Cat Clock"
+      ? "cat-clock"
+      : sku.name === "Magic Hat"
+      ? "magic-hat"
+      : null
+
   return (
     <>
       <Card className={classes.root}>
         <Link
           // to={`/products/${ProductPage}`}
-          to={`/products/${sku.name}`}
+          to={`/products/${LinkToProductPage}`}
           className={classes.link}
           // style={{ textDecoration: "none", color: "tomato" }}
         >
