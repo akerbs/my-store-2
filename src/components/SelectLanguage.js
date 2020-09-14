@@ -6,7 +6,8 @@ import FormControl from "@material-ui/core/FormControl"
 import Select from "@material-ui/core/Select"
 // import Link from "gatsby-plugin-transition-link"
 import { Link } from "gatsby"
-import { LanguageContext } from "../context/LanguageContext"
+// import { LanguageContext } from "../context/LanguageContext"
+import { LanguageContext } from "../components/layout"
 
 const useStyles = makeStyles(theme => ({
   formControl: {

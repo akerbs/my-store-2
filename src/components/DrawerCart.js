@@ -9,7 +9,8 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight"
 import CartOverview from "./Cart/CartOverview"
 import Slide from "@material-ui/core/Slide"
 import Fade from "@material-ui/core/Fade"
-import { LanguageContext } from "../context/LanguageContext"
+// import { LanguageContext } from "../context/LanguageContext"
+import { LanguageContext } from "../components/layout"
 
 const window = require("global/window")
 

@@ -14,7 +14,9 @@ import { Link } from "gatsby"
 // import { OldPrice } from "./OldPrice"
 import { DrawerCartContext } from "../../context/DrawerCartContext"
 import theme from "../theme"
-import { LanguageContext } from "../../context/LanguageContext"
+// import { LanguageContext } from "../../context/LanguageContext"
+import { LanguageContext } from "../../components/layout"
+
 import {
   ItemName,
   ItemDescription,
