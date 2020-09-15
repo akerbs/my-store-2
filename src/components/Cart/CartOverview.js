@@ -120,6 +120,7 @@ const Cart = props => {
                     color="primary"
                     disabled={loading}
                     onClick={() => {
+                      console.log(cartDetails)
                       setLoading(true)
                       redirectToCheckout()
                     }}

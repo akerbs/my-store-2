@@ -53,6 +53,13 @@ const useStyles = makeStyles({
       transform: "scale(1.2)",
     },
   },
+  btnAddToCart: {
+    color: theme.palette.primary.main,
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.secondary.contrastText,
+    },
+  },
 })
 
 const SkuCard = ({ sku }, props) => {
@@ -133,11 +140,12 @@ const SkuCard = ({ sku }, props) => {
             </CardContent>
           </CardActionArea>
         </Link>
-        {/* <CardActions>
+        <CardActions>
           <Button
+            className={classes.btnAddToCart}
             variant="outlined"
+            fullWidth
             size="small"
-            color="primary"
             onClick={() => {
               addItem(sku)
               // handleSnakebarShow()
@@ -152,7 +160,7 @@ const SkuCard = ({ sku }, props) => {
               ? "ADD TO CART"
               : "ADD TO CART"}
           </Button>
-        </CardActions> */}
+        </CardActions>
       </Card>
       {/* 
       <SnakeBar

@@ -30,8 +30,8 @@ export const LanguageContext = createContext()
 
 function Layout({ children }) {
   const classes = useStyles()
-  // { actCurrency, handleCurrencyChange } = useContext(CurrencyContext)
-  //  const { clearCart } = useShoppingCart()
+  const [actCurrency, setActCurrency] = useState("")
+  const [actLanguage, setActLanguage] = useState("")
 
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -43,6 +43,10 @@ function Layout({ children }) {
     }
   `)
 
+  window.onload = function () {
+    detectLanguage()
+    detectCurrency()
+  }
   function detectLanguage() {
     if (window.navigator.language.slice(0, 2) === "ru") {
       setActLanguage("RUS")
@@ -54,18 +58,7 @@ function Layout({ children }) {
       setActLanguage("ENG")
     }
   }
-
   function detectCurrency() {
-    // console.log("Trololo:", window.navigator.language.slice(0, 2))
-    // alert("Test")
-
-    // async function getIP() {
-    //   const response = await fetch("http://api.ipify.org/?format=json")
-    //   const ipAddress = await response.json()
-    //   return ipAddress
-    // }
-    // getIP().then(ipAddress => console.log(ipAddress))
-
     async function getLocation() {
       const response = await fetch("https://ipapi.co/json")
       const info = await response.json()
@@ -83,16 +76,7 @@ function Layout({ children }) {
     }
     getLocation().then(countryCode => console.log(countryCode))
   }
-
-  window.onload = function () {
-    detectLanguage()
-    detectCurrency()
-  }
-
-  const [actCurrency, setActCurrency] = useState("")
-  const [actLanguage, setActLanguage] = useState("")
-
-  async function handleCurrencyChange(event) {
+  function handleCurrencyChange(event) {
     setActCurrency(event.target.value)
     // clearCart();
     //  forceUpdate()
