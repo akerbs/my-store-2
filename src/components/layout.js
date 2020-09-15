@@ -42,11 +42,8 @@ function Layout({ children }) {
       }
     }
   `)
-  /////////////////////////////////////////   detect of language and set it as initial value //////////////////////////////////////////////////////////////////////////
-  function langDetect() {
-    // console.log("Trololo:", window.navigator.language.slice(0, 2))
-    // alert("Test")
 
+  function detectLanguage() {
     if (window.navigator.language.slice(0, 2) === "ru") {
       setActLanguage("RUS")
     } else if (window.navigator.language.slice(0, 2) === "de") {
@@ -58,37 +55,40 @@ function Layout({ children }) {
     }
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////   detect of coutry and set initial currency //////////////////////////////////////////////////////////////////////////
+  function detectCurrency() {
+    // console.log("Trololo:", window.navigator.language.slice(0, 2))
+    // alert("Test")
+
+    // async function getIP() {
+    //   const response = await fetch("http://api.ipify.org/?format=json")
+    //   const ipAddress = await response.json()
+    //   return ipAddress
+    // }
+    // getIP().then(ipAddress => console.log(ipAddress))
+
+    async function getLocation() {
+      const response = await fetch("https://ipapi.co/json")
+      const info = await response.json()
+      const countryCode = info.country_code
+
+      ;(await countryCode) == "US"
+        ? setActCurrency("USD")
+        : countryCode == "DE"
+        ? setActCurrency("EUR")
+        : countryCode == "RU"
+        ? setActCurrency("RUB")
+        : setActCurrency("USD")
+
+      return countryCode
+    }
+    getLocation().then(countryCode => console.log(countryCode))
+  }
 
   window.onload = function () {
-    langDetect()
-    var endpoint = "http://ip-api.com/json/?fields=status,message,countryCode"
-
-    var xhr = new XMLHttpRequest()
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        var response = JSON.parse(this.responseText)
-        if (response.status !== "success") {
-          console.log("query failed: " + response.message)
-          return
-        }
-        // Redirect
-        if (response.countryCode == "US") {
-          setActCurrency("USD")
-        }
-        if (response.countryCode == "DE") {
-          setActCurrency("EUR")
-        }
-        if (response.countryCode == "RU") {
-          setActCurrency("RUB")
-        }
-      }
-    }
-    xhr.open("GET", endpoint, true)
-    xhr.send()
+    detectLanguage()
+    detectCurrency()
   }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   const [actCurrency, setActCurrency] = useState("")
   const [actLanguage, setActLanguage] = useState("")
 
