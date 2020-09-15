@@ -12,7 +12,9 @@ import Divider from "@material-ui/core/Divider"
 import { Link, navigate } from "gatsby"
 import Slide from "@material-ui/core/Slide"
 import Fade from "@material-ui/core/Fade"
-import { LanguageContext } from "../../context/LanguageContext"
+// import { LanguageContext } from "../../context/LanguageContext"
+import { LanguageContext } from "../layout"
+
 import { ItemName, ItemDescription, OldPrice, ImgLocal } from "../Products/DB"
 
 const useStyles = makeStyles(theme => ({

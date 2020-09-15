@@ -14,7 +14,7 @@ import { DrawerCartContextProvider } from "../context/DrawerCartContext"
 import { DrawerMenuContextProvider } from "../context/DrawerMenuContext"
 // import { CurrencyContextProvider } from "../context/CurrencyContext"
 // import { CurrencyContext } from "../context/CurrencyContext"
-// import { useShoppingCart } from "use-shopping-cart"
+//  import { useShoppingCart } from "use-shopping-cart"
 // import { LanguageContextProvider } from "../context/LanguageContext"
 // import { LanguageContext } from "../context/LanguageContext"
 const window = require("global/window")
@@ -31,6 +31,7 @@ export const LanguageContext = createContext()
 function Layout({ children }) {
   const classes = useStyles()
   // { actCurrency, handleCurrencyChange } = useContext(CurrencyContext)
+  //  const { clearCart } = useShoppingCart()
 
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -41,31 +42,27 @@ function Layout({ children }) {
       }
     }
   `)
-  // const { clearCart } = useShoppingCart()
-
   /////////////////////////////////////////   detect of language and set it as initial value //////////////////////////////////////////////////////////////////////////
-  // window.onload = function () {
-  function detectLanguage() {
-    useEffect(() => {
-      if (window.navigator.language.slice(0, 2) === "ru") {
-        setActLanguage("RUS")
-      } else if (window.navigator.language.slice(0, 2) === "de") {
-        setActLanguage("DEU")
-      } else if (window.navigator.language.slice(0, 2) === "ge") {
-        setActLanguage("ENG")
-      } else {
-        setActLanguage("ENG")
-      }
-    }, [])
-    return null
+  function langDetect() {
+    // console.log("Trololo:", window.navigator.language.slice(0, 2))
+    // alert("Test")
+
+    if (window.navigator.language.slice(0, 2) === "ru") {
+      setActLanguage("RUS")
+    } else if (window.navigator.language.slice(0, 2) === "de") {
+      setActLanguage("DEU")
+    } else if (window.navigator.language.slice(0, 2) === "ge") {
+      setActLanguage("ENG")
+    } else {
+      setActLanguage("ENG")
+    }
   }
-  detectLanguage()
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
   /////////////////////////////////////////   detect of coutry and set initial currency //////////////////////////////////////////////////////////////////////////
 
   window.onload = function () {
+    langDetect()
     var endpoint = "http://ip-api.com/json/?fields=status,message,countryCode"
 
     var xhr = new XMLHttpRequest()
@@ -92,13 +89,13 @@ function Layout({ children }) {
     xhr.send()
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const [actCurrency, setActCurrency] = useState("EUR")
-  const [actLanguage, setActLanguage] = useState("DEU")
+  const [actCurrency, setActCurrency] = useState("")
+  const [actLanguage, setActLanguage] = useState("")
 
-  function handleCurrencyChange(event) {
+  async function handleCurrencyChange(event) {
     setActCurrency(event.target.value)
+    // clearCart();
     //  forceUpdate()
-    // clearCart()
   }
   function handleLanguageChange(event) {
     setActLanguage(event.target.value)
@@ -128,6 +125,7 @@ function Layout({ children }) {
           <LanguageContext.Provider
             value={{
               actLanguage,
+              setActLanguage,
               handleLanguageChange,
             }}
           >

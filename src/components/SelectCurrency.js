@@ -21,14 +21,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function SelectCurrency() {
   const classes = useStyles()
-  // const [currency, setCurrency] = React.useState("EUR")
-
-  // const handleChange = event => {
-  //   setCurrency(event.target.value)
-  // }
 
   const { actCurrency, handleCurrencyChange } = useContext(CurrencyContext)
+
   const { clearCart } = useShoppingCart()
+
   return (
     <>
       <FormControl variant="standard" className={classes.formControl}>
