@@ -21,13 +21,13 @@ import withWidth from "@material-ui/core/withWidth"
 import Hidden from "@material-ui/core/Hidden"
 import PropTypes from "prop-types"
 import Title1 from "../../components/Title1"
-import Counter from "../../components/Cart/Counter"
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart"
 import ThumbsSwiper from "../../components/ProductDetailsPage/ThumbsSwiper"
 import MainSwiper from "../../components/ProductDetailsPage/MainSwiper"
 import Button from "@material-ui/core/Button"
 import { DrawerCartContext } from "../../context/DrawerCartContext"
 import { CurrencyContext } from "../../components/layout"
+import Counter from "../../components/Cart/Counter"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -77,6 +77,15 @@ const FunnyBunny = props => {
   const { handleDrawerCartOpen } = useContext(DrawerCartContext)
   const { actCurrency } = useContext(CurrencyContext)
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
+  const [quantityOfItem, setQuantityOfItem] = useState(1)
+
+  function increment() {
+    setQuantityOfItem(quantityOfItem + 1)
+  }
+
+  function decrement() {
+    setQuantityOfItem(quantityOfItem - 1)
+  }
 
   const ItemInfoUsd = {
     sku: props.data.stripePriceUsd.id,
@@ -150,12 +159,20 @@ const FunnyBunny = props => {
                 value: parseInt(ItemInfo.price),
                 currency: ItemInfo.currency,
               })}{" "}
-              <br />
+              <br /> <br />
+              <Counter
+                incrementItem={increment}
+                decrementItem={decrement}
+                quantity={quantityOfItem}
+                sku={ItemInfo}
+              />{" "}
+              <br /> <br />
               <Button
+                variant="contained"
                 size="small"
                 color="primary"
                 onClick={() => {
-                  addItem(ItemInfo)
+                  addItem(ItemInfo, quantityOfItem)
                   handleDrawerCartOpen()
                 }}
               >

@@ -12,11 +12,6 @@ import { loadStripe } from "@stripe/stripe-js"
 import SimpleReactLightbox from "simple-react-lightbox"
 import { DrawerCartContextProvider } from "../context/DrawerCartContext"
 import { DrawerMenuContextProvider } from "../context/DrawerMenuContext"
-// import { CurrencyContextProvider } from "../context/CurrencyContext"
-// import { CurrencyContext } from "../context/CurrencyContext"
-//  import { useShoppingCart } from "use-shopping-cart"
-// import { LanguageContextProvider } from "../context/LanguageContext"
-// import { LanguageContext } from "../context/LanguageContext"
 const window = require("global/window")
 
 const useStyles = makeStyles(theme => ({}))
@@ -43,10 +38,15 @@ function Layout({ children }) {
     }
   `)
 
-  window.onload = function () {
-    detectLanguage()
-    detectCurrency()
+  function init() {
+    window.onload = function () {
+      detectLanguage()
+      detectCurrency()
+      console.log("LANGUAGE: ", window.navigator.language.slice(0, 2))
+    }
   }
+  init()
+
   function detectLanguage() {
     if (window.navigator.language.slice(0, 2) === "ru") {
       setActLanguage("RUS")

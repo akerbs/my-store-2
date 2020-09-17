@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
 import CardActionArea from "@material-ui/core/CardActionArea"
@@ -16,6 +16,8 @@ import { DrawerCartContext } from "../../context/DrawerCartContext"
 import theme from "../theme"
 // import { LanguageContext } from "../../context/LanguageContext"
 import { LanguageContext } from "../../components/layout"
+import inView from "in-view"
+import Slide from "@material-ui/core/Slide"
 
 import {
   ItemName,
@@ -32,7 +34,7 @@ const useStyles = makeStyles({
     // padding: "1rem",
     transition: "0.3s linear",
     "&:hover": {
-      boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+      boxShadow: " 0 0 10px rgba(0, 0, 0, 0.5)",
     },
   },
 
@@ -69,6 +71,19 @@ const SkuCard = ({ sku }, props) => {
 
   const { actLanguage } = useContext(LanguageContext)
 
+  const [show, setShow] = useState(false)
+
+  function startInView() {
+    setShow(true)
+  }
+  function stopInView() {
+    setShow(false)
+  }
+
+  useEffect(() => {
+    inView(".selector").once("enter", startInView)
+  })
+
   // const [openSnackbar, setOpenSnackbar] = useState(false)
 
   // const handleSnakebarShow = () => {
@@ -92,82 +107,91 @@ const SkuCard = ({ sku }, props) => {
 
   return (
     <>
-      <Card className={classes.root}>
-        <Link
-          // to={`/products/${ProductPage}`}
-          to={`/products/${LinkToProductPage}`}
-          className={classes.link}
-          // style={{ textDecoration: "none", color: "tomato" }}
-        >
-          <CardActionArea>
-            <ImgLocal
-              sku={sku.sku}
-              alt={<ItemName sku={sku.sku} actLanguage={actLanguage} />}
-              className={classes.img}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5">
-                <ItemName sku={sku.sku} actLanguage={actLanguage} />
-              </Typography>
-              <Typography
-                variant="body2"
-                color="primary"
-                style={{ display: "inline" }}
+      <div style={{ overflow: "hidden" }} className="selector">
+        <Slide in={show} timeout={700} direction="up">
+          <div>
+            <Card className={classes.root}>
+              <Link
+                // to={`/products/${ProductPage}`}
+                to={`/products/${LinkToProductPage}`}
+                className={classes.link}
+                // style={{ textDecoration: "none", color: "tomato" }}
               >
-                <ItemDescription sku={sku.sku} actLanguage={actLanguage} />
-                <br />
-                {actLanguage === "DEU"
-                  ? "Preis"
-                  : actLanguage === "RUS"
-                  ? "Цена"
-                  : actLanguage === "ENG"
-                  ? "Price"
-                  : "Price"}
-                :{" "}
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  style={{ display: "inline" }}
+                <CardActionArea>
+                  <ImgLocal
+                    sku={sku.sku}
+                    alt={<ItemName sku={sku.sku} actLanguage={actLanguage} />}
+                    className={classes.img}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5">
+                      <ItemName sku={sku.sku} actLanguage={actLanguage} />
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="primary"
+                      style={{ display: "inline" }}
+                    >
+                      <ItemDescription
+                        sku={sku.sku}
+                        actLanguage={actLanguage}
+                      />
+                      <br />
+                      {actLanguage === "DEU"
+                        ? "Preis"
+                        : actLanguage === "RUS"
+                        ? "Цена"
+                        : actLanguage === "ENG"
+                        ? "Price"
+                        : "Price"}
+                      :{" "}
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        style={{ display: "inline" }}
+                      >
+                        {" "}
+                        <OldPrice sku={sku.sku} />
+                      </Typography>{" "}
+                      {formatCurrencyString({
+                        value: parseInt(sku.price),
+                        currency: sku.currency,
+                      })}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Link>
+              <CardActions>
+                <Button
+                  className={classes.btnAddToCart}
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  onClick={() => {
+                    addItem(sku)
+                    // handleSnakebarShow()
+                    handleDrawerCartOpen()
+                  }}
                 >
-                  {" "}
-                  <OldPrice sku={sku.sku} />
-                </Typography>{" "}
-                {formatCurrencyString({
-                  value: parseInt(sku.price),
-                  currency: sku.currency,
-                })}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Link>
-        <CardActions>
-          <Button
-            className={classes.btnAddToCart}
-            variant="outlined"
-            fullWidth
-            size="small"
-            onClick={() => {
-              addItem(sku)
-              // handleSnakebarShow()
-              handleDrawerCartOpen()
-            }}
-          >
-            {actLanguage === "DEU"
-              ? "IN DEN WARENKORB LEGEN"
-              : actLanguage === "RUS"
-              ? "ДОБАВИТЬ В КОРЗИНУ"
-              : actLanguage === "ENG"
-              ? "ADD TO CART"
-              : "ADD TO CART"}
-          </Button>
-        </CardActions>
-      </Card>
-      {/* 
+                  {actLanguage === "DEU"
+                    ? "IN DEN WARENKORB LEGEN"
+                    : actLanguage === "RUS"
+                    ? "ДОБАВИТЬ В КОРЗИНУ"
+                    : actLanguage === "ENG"
+                    ? "ADD TO CART"
+                    : "ADD TO CART"}
+                </Button>
+              </CardActions>
+            </Card>
+            {/* 
       <SnakeBar
         open={openSnackbar}
         onClose={handleSnakebarClose}
         message="Item added into cart"
       /> */}
+          </div>
+        </Slide>
+      </div>
     </>
   )
 }

@@ -12,10 +12,8 @@ import { makeStyles } from "@material-ui/core/styles"
 import { CurrencyContext } from "../components/layout"
 import Scroll from "../components/ScrollToTopBtn"
 import Slide from "@material-ui/core/Slide"
-import Fade from "@material-ui/core/Fade"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
-
 import inView from "in-view"
 
 const useStyles = makeStyles(theme => ({
@@ -51,8 +49,11 @@ export default function IndexPage(props) {
   }
 
   useEffect(() => {
-    inView(".selector1").on("enter", startInView1).on("exit", stopInView1)
-    inView(".selector2").on("enter", startInView2).on("exit", stopInView2)
+    // inView(".selector1").on("enter", startInView1).on("exit", stopInView1)
+    inView(".selector1").once("enter", startInView1)
+    // inView(".selector2").on("enter", startInView2).on("exit", stopInView2)
+    inView(".selector2").once("enter", startInView2)
+    inView.threshold(0.5)
   })
 
   return (
@@ -65,9 +66,7 @@ export default function IndexPage(props) {
         <div style={{ overflow: "hidden" }} className="selector1">
           <Slide in={show1} timeout={1000} direction="up">
             <div>
-              {/* <Fade in={props.open} timeout={800}> */}
               <h1>Hi people</h1>
-              {/* </Fade> */}
             </div>
           </Slide>
         </div>
@@ -103,16 +102,6 @@ export default function IndexPage(props) {
           et aperiam quaerat nisi aut odit optio impedit. vero sint.
           Exercitationem, libero, nisi ab quod atque accusantium voluptatum
           recusandae quibusdam asperiores eligendi, incidunt amet. Ipsa qui
-          consequatur laboriosam libero omnis. Magnam omnis, soluta ipsam
-          quaerat ut, impedit reprehenderit placeat ipsum repudiandae maxime aut
-          itaque molestias amet, et sit commodi nisi! Iusto ratione distinctio
-          et aperiam quaerat nisi aut odit optio impedit. vero sint.
-          Exercitationem, libero, nisi ab quod atque accusantium voluptatum
-          recusandae quibusdam asperiores eligendi, incidunt amet. Ipsa qui
-          consequatur laboriosam libero omnis. Magnam omnis, soluta ipsam
-          quaerat ut, impedit reprehenderit placeat ipsum repudiandae maxime aut
-          itaque molestias amet, et sit commodi nisi! Iusto ratione distinctio
-          et aperiam quaerat nisi aut odit optio impedit.
         </p>
         {actCurrency === "EUR" ? (
           <SkusEur />
@@ -124,17 +113,6 @@ export default function IndexPage(props) {
           <SkusUsd />
         )}
         {/* <Skus /> */}
-        <div style={{ overflow: "hidden" }} className="selector2">
-          <Slide in={show2} timeout={1000} direction="up">
-            <Typography variant="body1">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
-              modi itaque ratione. Omnis, dolores voluptas quia recusandae
-              similique corrupti quae vero veniam id blanditiis beatae, nobis
-              est totam. Dicta voluptates illo ipsum excepturi
-              <Button>show</Button>
-            </Typography>
-          </Slide>
-        </div>
       </Container>
 
       <Footer />

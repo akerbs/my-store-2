@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import Typography from "@material-ui/core/Typography"
@@ -23,6 +23,8 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers"
 import FormControl from "@material-ui/core/FormControl"
 import { navigate } from "gatsby"
+import inView from "in-view"
+import Slide from "@material-ui/core/Slide"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -110,137 +112,163 @@ const Footer = () => {
     }
   }
 
+  const [show, setShow] = useState(false)
+
+  function startInView() {
+    setShow(true)
+  }
+  function stopInView() {
+    setShow(false)
+  }
+
+  useEffect(() => {
+    inView(".selector").once("enter", startInView)
+    inView.threshold(0.8)
+  })
+
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Container maxWidth="md" className={classes.content}>
-        <Grid container className={classes.root} spacing={3}>
-          <Grid item md={4}>
-            <Typography variant="body2" className={classes.title}>
-              CONTACTS
-            </Typography>
-            <Typography variant="caption">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-              incidunt dolorem aut explicabo aliquid. Quae officiis voluptate
-              nemo dolore cum animi inventore possimus, beatae incidunt
-              praesentium.
-            </Typography>
+      <div style={{ overflow: "hidden" }} className="selector">
+        <Slide in={show} timeout={1500} direction="up">
+          <div>
+            <Container maxWidth="md" className={classes.content}>
+              <Grid container className={classes.root} spacing={3}>
+                <Grid item md={4}>
+                  <Typography variant="body2" className={classes.title}>
+                    CONTACTS
+                  </Typography>
+                  <Typography variant="caption">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Cumque incidunt dolorem aut explicabo aliquid. Quae officiis
+                    voluptate nemo dolore cum animi inventore possimus, beatae
+                    incidunt praesentium.
+                  </Typography>
 
-            <div className={classes.payCards}>
-              <img
-                src={payCard1}
-                title="visa"
-                className={classes.payCardItem}
-              />
-              <img
-                src={payCard2}
-                title="master card"
-                className={classes.payCardItem}
-              />
-              <img
-                src={payCard3}
-                title="maestro"
-                className={classes.payCardItem}
-              />
-              <img
-                src={payCard4}
-                title="pay pal"
-                className={classes.payCardItem}
-              />
-              <img
-                src={payCard5}
-                title="american express"
-                className={classes.payCardItem}
-              />
+                  <div className={classes.payCards}>
+                    <img
+                      src={payCard1}
+                      title="visa"
+                      className={classes.payCardItem}
+                    />
+                    <img
+                      src={payCard2}
+                      title="master card"
+                      className={classes.payCardItem}
+                    />
+                    <img
+                      src={payCard3}
+                      title="maestro"
+                      className={classes.payCardItem}
+                    />
+                    <img
+                      src={payCard4}
+                      title="pay pal"
+                      className={classes.payCardItem}
+                    />
+                    <img
+                      src={payCard5}
+                      title="american express"
+                      className={classes.payCardItem}
+                    />
 
-              <img
-                src={payCard6}
-                title="google pay"
-                className={classes.payCardItem}
-              />
+                    <img
+                      src={payCard6}
+                      title="google pay"
+                      className={classes.payCardItem}
+                    />
 
-              <img
-                src={payCard7}
-                title="apple pay"
-                className={classes.payCardItem}
-              />
-            </div>
-          </Grid>
-          <Grid item md={4}>
-            <Typography variant="body2" className={classes.title}>
-              SERVICES
-            </Typography>
-            <Typography variant="caption">
-              <Link to="/services/terms" className={classes.link}>
-                Terms of Service
-              </Link>
-              <br />
-              <Link to="/services/returns" className={classes.link}>
-                Returns & Refund
-              </Link>
-              <br />
-              <Link to="/services/privacy-policy" className={classes.link}>
-                Privacy Policy
-              </Link>
-              <br />
-              <Link to="/services/shipping-policy" className={classes.link}>
-                Shipping Policy
-              </Link>
-              <br />
-              <Link to="/services/about-us" className={classes.link}>
-                About us
-              </Link>
-              <br />
-              <Link to="/services/contact-us" className={classes.link}>
-                Contact us
-              </Link>
-            </Typography>
-          </Grid>
-          <Grid item md={4}>
-            <Typography variant="body2" className={classes.title2}>
-              JOIN OUR NEWSLETTER
-            </Typography>
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
-              <FormControl className={classes.formControl}>
-                <TextField
-                  type="email"
-                  name="email"
-                  placeholder="Your email address..."
-                  variant="outlined"
-                  size="small"
-                  className={classes.textFieldEmail}
-                  inputRef={register}
-                  error={!!errorEmail}
-                  helperText={errorEmail}
-                />
-              </FormControl>
-              <Button
-                id="submit"
-                name="submit"
-                type="submit"
-                variant="outlined"
-                color="default"
-                className={classes.btnSubscribe}
-                // size="small"
+                    <img
+                      src={payCard7}
+                      title="apple pay"
+                      className={classes.payCardItem}
+                    />
+                  </div>
+                </Grid>
+                <Grid item md={4}>
+                  <Typography variant="body2" className={classes.title}>
+                    SERVICES
+                  </Typography>
+                  <Typography variant="caption">
+                    <Link to="#" className={classes.link}>
+                      Terms of Service
+                    </Link>
+                    <br />
+                    <Link to="#" className={classes.link}>
+                      Returns & Refund
+                    </Link>
+                    <br />
+                    <Link to="#" className={classes.link}>
+                      Privacy Policy
+                    </Link>
+                    <br />
+                    <Link to="#" className={classes.link}>
+                      Shipping Policy
+                    </Link>
+                    <br />
+                    <Link to="#" className={classes.link}>
+                      About us
+                    </Link>
+                    <br />
+                    <Link to="#" className={classes.link}>
+                      Contact us
+                    </Link>
+                  </Typography>
+                </Grid>
+                <Grid item md={4}>
+                  <Typography variant="body2" className={classes.title2}>
+                    JOIN OUR NEWSLETTER
+                  </Typography>
+                  <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                    <FormControl className={classes.formControl}>
+                      <TextField
+                        type="email"
+                        name="email"
+                        placeholder="Your email address..."
+                        variant="outlined"
+                        size="small"
+                        className={classes.textFieldEmail}
+                        inputRef={register}
+                        error={!!errorEmail}
+                        helperText={errorEmail}
+                      />
+                    </FormControl>
+                    <Button
+                      id="submit"
+                      name="submit"
+                      type="submit"
+                      variant="outlined"
+                      color="default"
+                      className={classes.btnSubscribe}
+                      // size="small"
+                    >
+                      Subscribe
+                    </Button>
+                  </form>
+                  <Typography variant="body2" className={classes.title2}>
+                    FOLLOW US
+                  </Typography>
+                  <Link to="#" className={classes.link}>
+                    {" "}
+                    <FacebookIcon />{" "}
+                  </Link>
+                  <Link to="#" className={classes.link}>
+                    <InstagramIcon />{" "}
+                  </Link>
+                </Grid>
+              </Grid>
+              <div
+                style={{
+                  textAlign: "center",
+                  minHeight: "50px",
+                }}
               >
-                Subscribe
-              </Button>
-            </form>
-            <Typography variant="body2" className={classes.title2}>
-              FOLLOW US
-            </Typography>
-            <FacebookIcon /> <InstagramIcon />
-          </Grid>
-        </Grid>
-        <div
-          style={{
-            textAlign: "center",
-            minHeight: "50px",
-          }}
-        >
-          © {new Date().getFullYear()}, Gatsby
-        </div>
-      </Container>
+                © {new Date().getFullYear()}, MyStore
+              </div>
+            </Container>
+          </div>
+        </Slide>
+      </div>
     </div>
   )
 }

@@ -8,6 +8,7 @@ const useStyles = makeStyles(theme => ({
     width: "430px",
     height: "100%",
     margin: 0,
+    cursor: "pointer",
     [theme.breakpoints.down("sm")]: {
       width: "52px",
     },
