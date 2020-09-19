@@ -26,7 +26,7 @@ export const LanguageContext = createContext()
 function Layout({ children }) {
   const classes = useStyles()
   const [actCurrency, setActCurrency] = useState("")
-  const [actLanguage, setActLanguage] = useState(lang)
+  const [actLanguage, setActLanguage] = useState("")
 
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -40,21 +40,22 @@ function Layout({ children }) {
 
   function init() {
     window.onload = function () {
-      lang()
+      detectLanguage()
       detectCurrency()
+      console.log("LANGUAGE: ", window.navigator.language.slice(0, 2))
     }
   }
   init()
 
-  function lang() {
+  function detectLanguage() {
     if (window.navigator.language.slice(0, 2) === "ru") {
-      return "RUS"
+      setActLanguage("RUS")
     } else if (window.navigator.language.slice(0, 2) === "de") {
-      return "DEU"
+      setActLanguage("DEU")
     } else if (window.navigator.language.slice(0, 2) === "ge") {
-      return "ENG"
+      setActLanguage("ENG")
     } else {
-      return "ENG"
+      setActLanguage("ENG")
     }
   }
   function detectCurrency() {
@@ -63,11 +64,11 @@ function Layout({ children }) {
       const info = await response.json()
       const countryCode = info.country_code
 
-      countryCode === "US"
+      ;(await countryCode) == "US"
         ? setActCurrency("USD")
-        : countryCode === "DE"
+        : countryCode == "DE"
         ? setActCurrency("EUR")
-        : countryCode === "RU"
+        : countryCode == "RU"
         ? setActCurrency("RUB")
         : setActCurrency("USD")
 
@@ -75,7 +76,6 @@ function Layout({ children }) {
     }
     getLocation().then(countryCode => console.log(countryCode))
   }
-
   function handleCurrencyChange(event) {
     setActCurrency(event.target.value)
     // clearCart();
