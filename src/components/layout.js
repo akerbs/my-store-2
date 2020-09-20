@@ -38,27 +38,25 @@ function Layout({ children }) {
     }
   `)
 
-  function init() {
-    window.onload = function () {
-      detectLanguage()
-      detectCurrency()
+  useEffect(() => {
+    if (typeof window !== `undefined`) {
       console.log("LANGUAGE: ", window.navigator.language.slice(0, 2))
-    }
-  }
-  init()
 
-  function detectLanguage() {
-    if (window.navigator.language.slice(0, 2) === "ru") {
-      setActLanguage("RUS")
-    } else if (window.navigator.language.slice(0, 2) === "de") {
-      setActLanguage("DEU")
-    } else if (window.navigator.language.slice(0, 2) === "ge") {
-      setActLanguage("ENG")
-    } else {
-      setActLanguage("ENG")
+      if (window.navigator.language.slice(0, 2) === "ru") {
+        setActLanguage("RUS")
+      } else if (window.navigator.language.slice(0, 2) === "de") {
+        setActLanguage("DEU")
+      } else if (window.navigator.language.slice(0, 2) === "en") {
+        setActLanguage("ENG")
+      } else {
+        setActLanguage("ENG")
+      }
+
+      detectCurrency()
     }
-  }
-  function detectCurrency() {
+  }, [])
+
+  async function detectCurrency() {
     async function getLocation() {
       const response = await fetch("https://ipapi.co/json")
       const info = await response.json()
@@ -74,8 +72,9 @@ function Layout({ children }) {
 
       return countryCode
     }
-    getLocation().then(countryCode => console.log(countryCode))
+    getLocation().then(countryCode => console.log("COUNTRY CODE:", countryCode))
   }
+
   function handleCurrencyChange(event) {
     setActCurrency(event.target.value)
     // clearCart();
