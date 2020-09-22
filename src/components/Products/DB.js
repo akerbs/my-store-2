@@ -1,10 +1,14 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import { graphql, StaticQuery } from "gatsby"
+import { LanguageContext } from "../../components/layout"
+import { CurrencyContext } from "../../components/layout"
 
 import funnyBunny from "../../images/products/funny_bunny/funny_bunny_2.jpg"
 import catClock from "../../images/products/cat_clock/cat_clock_1.jpg"
 import magicHat from "../../images/products/magic_hat/magic_hat_1.jpg"
+import funnyBunny2 from "../../images/products/funny_bunny/funny_bunny_1.jpg"
+
 const window = require("global/window")
 
 const useStyles = makeStyles(theme => ({
@@ -42,13 +46,15 @@ const magicHat_priceUsd = "price_1HMt2gHwITO0GSJrR1YuszFV"
 const magicHat_priceEur = "price_1HHUu9HwITO0GSJrsoWoL51O"
 const magicHat_priceRub = "price_1HNFZ7HwITO0GSJrieVKbbte"
 
+const funnyBunnyId = "prod_HqQT1Nni7ovIFj"
+const catClockId = "prod_HqorCSiih5dZWu"
+const magicHatId = "prod_HrDKbPKHBo6qPK"
+
 export function ItemName(props) {
   const classes = useStyles()
   return (
     <p className={classes.root}>
-      {props.sku === funnyBunny_priceUsd ||
-      props.sku === funnyBunny_priceEur ||
-      props.sku === funnyBunny_priceRub
+      {props.sku.productId === funnyBunnyId
         ? props.actLanguage === "ENG"
           ? "Funny bunny"
           : props.actLanguage === "DEU"
@@ -57,9 +63,7 @@ export function ItemName(props) {
           ? "Забавный кролик"
           : ""
         : null}
-      {props.sku === catClock_priceUsd ||
-      props.sku === catClock_priceEur ||
-      props.sku === catClock_priceRub
+      {props.sku.productId === catClockId
         ? props.actLanguage === "ENG"
           ? "Cat clock"
           : props.actLanguage === "DEU"
@@ -68,9 +72,7 @@ export function ItemName(props) {
           ? "Кошка-часы"
           : ""
         : null}
-      {props.sku === magicHat_priceUsd ||
-      props.sku === magicHat_priceEur ||
-      props.sku === magicHat_priceRub
+      {props.sku.productId === magicHatId
         ? props.actLanguage === "ENG"
           ? "Magic hat"
           : props.actLanguage === "DEU"
@@ -87,9 +89,7 @@ export function ItemDescription(props) {
   const classes = useStyles()
   return (
     <p className={classes.root}>
-      {props.sku === funnyBunny_priceUsd ||
-      props.sku === funnyBunny_priceEur ||
-      props.sku === funnyBunny_priceRub
+      {props.sku.productId === funnyBunnyId
         ? props.actLanguage === "ENG"
           ? "Great funny bunny"
           : props.actLanguage === "DEU"
@@ -98,9 +98,7 @@ export function ItemDescription(props) {
           ? "Отличный забавный кролик"
           : ""
         : null}
-      {props.sku === catClock_priceUsd ||
-      props.sku === catClock_priceEur ||
-      props.sku === catClock_priceRub
+      {props.sku.productId === catClockId
         ? props.actLanguage === "ENG"
           ? "Cat clock, color: black"
           : props.actLanguage === "DEU"
@@ -109,9 +107,7 @@ export function ItemDescription(props) {
           ? "Кошка-часы, цвет: чёрный"
           : ""
         : null}
-      {props.sku === magicHat_priceUsd ||
-      props.sku === magicHat_priceEur ||
-      props.sku === magicHat_priceRub
+      {props.sku.productId === magicHatId
         ? props.actLanguage === "ENG"
           ? "Magic hat, color: gray"
           : props.actLanguage === "DEU"
@@ -128,12 +124,12 @@ export function OldPrice(props) {
   const classes = useStyles()
   return (
     <p className={classes.oldPrice}>
-      {props.sku === "price_1HGjcwHwITO0GSJrJEhUG0Aq"
+      {props.sku.sku === "price_1HGjcwHwITO0GSJrJEhUG0Aq"
         ? window.innerWidth <= 599
           ? "€999,00"
           : "999,00 €"
         : ""}
-      {props.sku === "price_1HH7DcHwITO0GSJrZz3vg6d9"
+      {props.sku.sku === "price_1HH7DcHwITO0GSJrZz3vg6d9"
         ? window.innerWidth <= 599
           ? "€55,00"
           : "55,00 €"
@@ -146,69 +142,40 @@ export function ImgLocal(props) {
   const classes = useStyles()
   return (
     <>
-      {props.sku === funnyBunny_priceUsd ||
-      props.sku === funnyBunny_priceEur ||
-      props.sku === funnyBunny_priceRub ? (
+      {props.sku.productId === funnyBunnyId ? (
         <img src={funnyBunny} className={classes.imgCard} />
-      ) : props.sku === catClock_priceUsd ||
-        props.sku === catClock_priceEur ||
-        props.sku === catClock_priceRub ? (
+      ) : props.sku.productId === catClockId ? (
         <img src={catClock} className={classes.imgCard} />
-      ) : props.sku === magicHat_priceUsd ||
-        props.sku === magicHat_priceEur ||
-        props.sku === magicHat_priceRub ? (
+      ) : props.sku.productId === magicHatId ? (
         <img src={magicHat} className={classes.imgCard} />
       ) : null}
     </>
   )
 }
 
-// export default function ProductPage(props) {
-//   let page =
-//     props.sku === funnyBunny_priceUsd ||
-//     props.sku === funnyBunny_priceEur ||
-//     props.sku === funnyBunny_priceRub
-//       ? "funny_bunny"
-//       : props.sku === catClock_priceUsd ||
-//         props.sku === catClock_priceEur ||
-//         props.sku === catClock_priceRub
-//       ? "cat_clock"
-//       : props.sku === magicHat_priceUsd ||
-//         props.sku === magicHat_priceEur ||
-//         props.sku === magicHat_priceRub
-//       ? "magic_hat"
-//       : ""
+export function Img2Local(props) {
+  const classes = useStyles()
+  return (
+    <>
+      {props.sku.productId === funnyBunnyId ? (
+        <img src={funnyBunny2} className={classes.imgCard} />
+      ) : props.sku.productId === catClockId ? (
+        <img src={funnyBunny2} className={classes.imgCard} />
+      ) : props.sku.productId === magicHatId ? (
+        <img src={funnyBunny2} className={classes.imgCard} />
+      ) : null}
+    </>
+  )
+}
 
-//   return page
-// }
-
-// export default function ProductPage(props) {
-//   let page =
-//     props.data.prices.edges.node.id === funnyBunny_priceUsd ||
-//     props.data.prices.edges.node.id === funnyBunny_priceEur ||
-//     props.data.prices.edges.node.id === funnyBunny_priceRub
-//       ? "funny_bunny"
-//       : props.data.prices.edges.node.id === catClock_priceUsd ||
-//         props.data.prices.edges.node.id === catClock_priceEur ||
-//         props.data.prices.edges.node.id === catClock_priceRub
-//       ? "cat_clock"
-//       : props.data.prices.edges.node.id === magicHat_priceUsd ||
-//         props.data.prices.edges.node.id === magicHat_priceEur ||
-//         props.data.prices.edges.node.id === magicHat_priceRub
-//       ? "magic_hat"
-//       : ""
-
-//   return page
-// }
-
-// export const query = graphql`
-//   query {
-//     prices: allStripePrice {
-//       edges {
-//         node {
-//           id
-//         }
-//       }
-//     }
-//   }
-// `
+export function description(productId) {
+  if (productId === funnyBunnyId) {
+    return "Great funny bunny"
+  } else if (productId === catClockId) {
+    return "Cat clock, color: black"
+  } else if (productId === magicHatId) {
+    return "Magic hat, color: gray"
+  } else {
+    return null
+  }
+}

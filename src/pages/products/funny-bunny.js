@@ -20,7 +20,7 @@ import { SRLWrapper } from "simple-react-lightbox"
 import withWidth from "@material-ui/core/withWidth"
 import Hidden from "@material-ui/core/Hidden"
 import PropTypes from "prop-types"
-import Title1 from "../../components/Title1"
+
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart"
 import ThumbsSwiper from "../../components/ProductDetailsPage/ThumbsSwiper"
 import MainSwiper from "../../components/ProductDetailsPage/MainSwiper"
@@ -121,6 +121,8 @@ const FunnyBunny = props => {
       ? ItemInfoRub
       : ItemInfoUsd
 
+  console.log("DATA:", props.data)
+
   return (
     <div className={classes.root} id="root">
       <SEO title="Funny bunny" keywords={[`gatsby`, `application`, `react`]} />
@@ -153,7 +155,6 @@ const FunnyBunny = props => {
               </Grid>
             </Grid>
             <Grid item md={6}>
-              <Title1 lineContent="Funny Bunny" />
               Price:{" "}
               {formatCurrencyString({
                 value: parseInt(ItemInfo.price),
@@ -213,7 +214,6 @@ const FunnyBunny = props => {
           />
           <br /> <br />
           <Container>
-            <Title1 lineContent="Funny Bunny" />
             Price:{" "}
             {formatCurrencyString({
               value: parseInt(ItemInfo.price),

@@ -4,6 +4,10 @@ import { Link } from "gatsby"
 import Header from "../components/header"
 import Footer from "../components/footer"
 import SEO from "../components/seo"
+
+// import products from "../components/Products/data/products"
+// import products from "../components/Products/data/products"
+import Items from "../components/Products/Items"
 import SkusEur from "../components/Products/SkusEur"
 import SkusUsd from "../components/Products/SkusUsd"
 import SkusRub from "../components/Products/SkusRub"
@@ -29,6 +33,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function IndexPage(props) {
+  // console.log("DATA:", products)
   const classes = useStyles()
   const { actCurrency } = useContext(CurrencyContext)
   const [show1, setShow1] = useState(false)
@@ -92,18 +97,8 @@ export default function IndexPage(props) {
           recusandae quibusdam asperiores eligendi, incidunt amet. Ipsa qui
           consequatur laboriosam libero omnis. Magnam omnis, soluta ipsam
           quaerat ut, impedit reprehenderit placeat ipsum repudiandae maxime aut
-          itaque molestias amet, et sit commodi nisi! Iusto ratione distinctio
-          et aperiam quaerat nisi aut odit optio impedit. vero sint.
-          Exercitationem, libero, nisi ab quod atque accusantium voluptatum
-          recusandae quibusdam asperiores eligendi, incidunt amet. Ipsa qui
-          consequatur laboriosam libero omnis. Magnam omnis, soluta ipsam
-          quaerat ut, impedit reprehenderit placeat ipsum repudiandae maxime aut
-          itaque molestias amet, et sit commodi nisi! Iusto ratione distinctio
-          et aperiam quaerat nisi aut odit optio impedit. vero sint.
-          Exercitationem, libero, nisi ab quod atque accusantium voluptatum
-          recusandae quibusdam asperiores eligendi, incidunt amet. Ipsa qui
         </p>
-        {actCurrency === "EUR" ? (
+        {/* {actCurrency === "EUR" ? (
           <SkusEur />
         ) : actCurrency === "USD" ? (
           <SkusUsd />
@@ -111,8 +106,26 @@ export default function IndexPage(props) {
           <SkusRub />
         ) : (
           <SkusUsd />
-        )}
-        {/* <Skus /> */}
+        )} */}
+        <Items />
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum modi
+          itaque ratione. Omnis, dolores voluptas quia recusandae similique
+          corrupti quae vero veniam id blanditiis beatae, nobis est totam. Dicta
+          voluptates illo ipsum excepturi ipsam saepe dolorum molestiae,
+          quisquam officia rerum illum, eaque in quaerat corporis omnis repellat
+          vero sint. Exercitationem, libero, nisi ab quod atque accusantium
+          voluptatum recusandae quibusdam asperiores eligendi, incidunt amet.
+          Ipsa qui consequatur laboriosam libero omnis. Magnam omnis, soluta
+          ipsam quaerat ut, impedit reprehenderit placeat ipsum repudiandae
+          maxime aut itaque molestias amet, et sit commodi nisi! Iusto ratione
+          distinctio et aperiam quaerat nisi aut odit optio impedit. vero sint.
+          Exercitationem, libero, nisi ab quod atque accusantium voluptatum
+          recusandae quibusdam asperiores eligendi, incidunt amet. Ipsa qui
+          consequatur laboriosam libero omnis. Magnam omnis, soluta ipsam
+          quaerat ut, impedit reprehenderit placeat ipsum repudiandae maxime aut
+        </p>
       </Container>
 
       <Footer />

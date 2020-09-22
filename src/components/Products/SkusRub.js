@@ -45,13 +45,14 @@ export default props => {
           {prices.edges.map(({ node: price }) => {
             const newSku = {
               sku: price.id,
-              image: price.product.images,
+              // image: price.product.images,
               name: price.product.name,
-              description: price.product.description,
+              productId: price.product.id,
+              // description: price.product.description,
               price: price.unit_amount,
               currency: price.currency,
             }
-            return <SkuCard key={price.id} sku={newSku} />
+            return <SkuCard key={price.id} id={price.product.id} sku={newSku} />
           })}
         </div>
       )}

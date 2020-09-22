@@ -12,6 +12,8 @@ import { loadStripe } from "@stripe/stripe-js"
 import SimpleReactLightbox from "simple-react-lightbox"
 import { DrawerCartContextProvider } from "../context/DrawerCartContext"
 import { DrawerMenuContextProvider } from "../context/DrawerMenuContext"
+import { ItemsContextProvider } from "../context/ItemsContext"
+
 const window = require("global/window")
 
 const useStyles = makeStyles(theme => ({}))
@@ -112,16 +114,18 @@ function Layout({ children }) {
               handleLanguageChange,
             }}
           >
-            <CssBaseline />
-            <ThemeProvider theme={theme}>
-              <SimpleReactLightbox>
-                <DrawerMenuContextProvider>
-                  <DrawerCartContextProvider>
-                    {children}
-                  </DrawerCartContextProvider>
-                </DrawerMenuContextProvider>
-              </SimpleReactLightbox>
-            </ThemeProvider>
+            <ItemsContextProvider>
+              <CssBaseline />
+              <ThemeProvider theme={theme}>
+                <SimpleReactLightbox>
+                  <DrawerMenuContextProvider>
+                    <DrawerCartContextProvider>
+                      {children}
+                    </DrawerCartContextProvider>
+                  </DrawerMenuContextProvider>
+                </SimpleReactLightbox>
+              </ThemeProvider>
+            </ItemsContextProvider>
           </LanguageContext.Provider>
         </CartProvider>
       </CurrencyContext.Provider>

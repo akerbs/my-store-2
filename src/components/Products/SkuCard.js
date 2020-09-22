@@ -25,12 +25,22 @@ import {
   // ProductPage,
   OldPrice,
   ImgLocal,
+  Img2Local,
 } from "./DB"
 
 const useStyles = makeStyles({
+  noHover: {
+    backgroundColor: "black",
+  },
+  yesHover: {
+    backgroundColor: "tomato",
+  },
+
   root: {
     maxWidth: 300,
-    marginBottom: "1rem",
+    // maxHeight: 300,
+    margin: 2,
+    // marginBottom: "1rem",
     // padding: "1rem",
     transition: "0.3s linear",
     "&:hover": {
@@ -64,7 +74,7 @@ const useStyles = makeStyles({
   },
 })
 
-const SkuCard = ({ sku }, props) => {
+const SkuCard = ({ sku, id }, props) => {
   const classes = useStyles()
   const { addItem } = useShoppingCart()
   const { handleDrawerCartOpen } = useContext(DrawerCartContext)
@@ -72,6 +82,8 @@ const SkuCard = ({ sku }, props) => {
   const { actLanguage } = useContext(LanguageContext)
 
   const [show, setShow] = useState(false)
+
+  const [hover, setHover] = useState(false)
 
   function startInView() {
     setShow(true)
@@ -105,6 +117,30 @@ const SkuCard = ({ sku }, props) => {
       ? "magic-hat"
       : null
 
+  // console.log("keyProp", id)
+  // let card = document.getElementById("prod_HqQT1Nni7ovIFj")
+  // console.log("card", card)
+
+  // useEffect(() => {
+  //   let card = document.getElementById("prod_HqQT1Nni7ovIFj")
+
+  //   card.addEventListener(
+  //     "mouseover",
+  //     function () {
+  //       console.log("Funny bunny is over mouse")
+  //     },
+  //     true
+  //   )
+
+  //   card.addEventListener(
+  //     "mouseout",
+  //     function () {
+  //       console.log("Funny bunny is no more over mouse")
+  //     },
+  //     true
+  //   )
+  // }, [])
+
   return (
     <>
       <div style={{ overflow: "hidden" }} className="selector">
@@ -119,23 +155,21 @@ const SkuCard = ({ sku }, props) => {
               >
                 <CardActionArea>
                   <ImgLocal
-                    sku={sku.sku}
-                    alt={<ItemName sku={sku.sku} actLanguage={actLanguage} />}
+                    sku={sku}
+                    alt={<ItemName sku={sku} actLanguage={actLanguage} />}
                     className={classes.img}
                   />
+
                   <CardContent>
                     <Typography gutterBottom variant="h5">
-                      <ItemName sku={sku.sku} actLanguage={actLanguage} />
+                      <ItemName sku={sku} actLanguage={actLanguage} />
                     </Typography>
                     <Typography
                       variant="body2"
                       color="primary"
                       style={{ display: "inline" }}
                     >
-                      <ItemDescription
-                        sku={sku.sku}
-                        actLanguage={actLanguage}
-                      />
+                      <ItemDescription sku={sku} actLanguage={actLanguage} />
                       <br />
                       {actLanguage === "DEU"
                         ? "Preis"
@@ -151,7 +185,7 @@ const SkuCard = ({ sku }, props) => {
                         style={{ display: "inline" }}
                       >
                         {" "}
-                        <OldPrice sku={sku.sku} />
+                        <OldPrice sku={sku} />
                       </Typography>{" "}
                       {formatCurrencyString({
                         value: parseInt(sku.price),
