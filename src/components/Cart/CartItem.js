@@ -15,7 +15,7 @@ import Fade from "@material-ui/core/Fade"
 // import { LanguageContext } from "../../context/LanguageContext"
 import { LanguageContext } from "../layout"
 
-import { ItemName, ItemDescription, OldPrice, ImgLocal } from "../Products/DB"
+// import { ItemName, ItemDescription, OldPrice, ImgLocal } from "../Products/DB"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,8 +46,18 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const CartItem = props => {
+  console.log("IN CART:", props)
   const classes = useStyles()
   const { actLanguage } = useContext(LanguageContext)
+
+  const LinkToProductPage =
+    props.sku.productId === "prod_HqQT1Nni7ovIFj"
+      ? "funny-bunny"
+      : props.sku.productId === "prod_HqorCSiih5dZWu"
+      ? "cat-clock"
+      : props.sku.productId === "prod_HrDKbPKHBo6qPK"
+      ? "magic-hat"
+      : null
 
   return (
     <>
@@ -61,7 +71,7 @@ const CartItem = props => {
                   <Grid item xs={4}>
                     <ButtonBase
                       onClick={() => {
-                        navigate(`/products/${props.sku.name}`)
+                        navigate(`/products/${LinkToProductPage}`)
                         props.onClose()
                       }}
                       className={classes.imgBtn}
@@ -70,16 +80,12 @@ const CartItem = props => {
                         to={`/products/${props.sku.name}`}
                         style={{ textDecoration: "none" }}
                       > */}
-                      <ImgLocal
-                        sku={props.sku.sku}
-                        alt={
-                          <ItemName
-                            sku={props.sku.sku}
-                            actLanguage={actLanguage}
-                          />
-                        }
+                      <img
                         className={classes.img}
+                        src={props.sku.firstImg}
+                        alt={props.sku.name}
                       />
+
                       {/* </Link> */}
                     </ButtonBase>
                   </Grid>
@@ -93,16 +99,10 @@ const CartItem = props => {
                     <Grid item xs container direction="column" spacing={1}>
                       <Grid item xs>
                         <Typography gutterBottom variant="subtitle1">
-                          <ItemName
-                            sku={props.sku.sku}
-                            actLanguage={actLanguage}
-                          />
+                          {props.sku.name}
                         </Typography>
                         <Typography variant="body2" gutterBottom>
-                          <ItemDescription
-                            sku={props.sku.sku}
-                            actLanguage={actLanguage}
-                          />
+                          {props.sku.description}
                         </Typography>
                         <Typography variant="body2" color="textPrimary">
                           <Counter

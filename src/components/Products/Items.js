@@ -40,16 +40,16 @@ export default function () {
               : actLanguage === "RUS"
               ? item.descriptionRus
               : null,
-          sku: item.productId,
+          productId: item.productId,
 
-          // sku:
-          // actCurrency === "USD"
-          //   ? item.skuUsd
-          //   : actCurrency === "EUR"
-          //   ? item.descriptionDeu
-          //   : actCurrency === "RUB"
-          //   ? item.descriptionRus
-          //   : null,
+          sku:
+            actCurrency === "USD"
+              ? item.skuUsd
+              : actCurrency === "EUR"
+              ? item.skuEur
+              : actCurrency === "RUB"
+              ? item.skuRub
+              : null,
           price:
             actCurrency === "USD"
               ? item.priceUsd
