@@ -6,29 +6,29 @@ import SEO from "../components/seo"
 import Header from "../components/header"
 import Footer from "../components/footer"
 import Container from "@material-ui/core/Container"
-// import "swiper/swiper-bundle.css"
-// import "./swiper.css"
-// import SwiperCore, {
-//   Thumbs,
-//   Zoom,
-//   Navigation,
-//   EffectFade,
-//   Pagination,
-// } from "swiper"
+import "swiper/swiper-bundle.css"
+import "./swiper.css"
+import SwiperCore, {
+  Thumbs,
+  Zoom,
+  Navigation,
+  EffectFade,
+  Pagination,
+} from "swiper"
 import Grid from "@material-ui/core/Grid"
-// import { SRLWrapper } from "simple-react-lightbox"
+import { SRLWrapper } from "simple-react-lightbox"
 import withWidth from "@material-ui/core/withWidth"
 import Hidden from "@material-ui/core/Hidden"
 import PropTypes from "prop-types"
 
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart"
-// import ThumbsSwiper from "../../components/Swipers/ThumbsSwiper"
-// import MainSwiper from "../../components/Swipers/MainSwiper"
+import ThumbsSwiper from "../components/Swipers/ThumbsSwiper"
+import MainSwiper from "../components/Swipers/MainSwiper"
 import Button from "@material-ui/core/Button"
 import { DrawerCartContext } from "../context/DrawerCartContext"
 import { CurrencyContext } from "../components/layout"
 import { LanguageContext } from "../components/layout"
-// import Counter from "../../components/Cart/Counter"
+import Counter from "../components/Cart/Counter"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,34 +48,46 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-// SwiperCore.use([Thumbs, Zoom, Navigation, EffectFade, Pagination])
+SwiperCore.use([Thumbs, Zoom, Navigation, EffectFade, Pagination])
 
-// const lightboxOptions = {
-//   settings: {},
-//   caption: { showCaption: false },
-//   buttons: {
-//     showDownloadButton: false,
-//     showAutoplayButton: false,
-//     showFullscreenButton: false,
-//     size: "50px",
-//   },
-//   thumbnails: { showThumbnails: false },
-// }
+const lightboxOptions = {
+  settings: {},
+  caption: { showCaption: false },
+  buttons: {
+    showDownloadButton: false,
+    showAutoplayButton: false,
+    showFullscreenButton: false,
+    size: "50px",
+  },
+  thumbnails: { showThumbnails: false },
+}
 
-// const lightboxCallbacks = {
-//   onLightboxOpened: () => {
-//     document.body.style.position = "fixed"
-//   },
-//   onLightboxClosed: () => {
-//     const scrollY = document.body.style.top
-//     document.body.style.position = ""
-//   },
-// }
+const lightboxCallbacks = {
+  onLightboxOpened: () => {
+    document.body.style.position = "fixed"
+  },
+  onLightboxClosed: () => {
+    const scrollY = document.body.style.top
+    document.body.style.position = ""
+  },
+}
 
 export default function ProductPageTemplate(props) {
+  const classes = useStyles()
   const { actCurrency } = useContext(CurrencyContext)
   const { actLanguage } = useContext(LanguageContext)
-  const classes = useStyles()
+  const { addItem } = useShoppingCart()
+  const { handleDrawerCartOpen } = useContext(DrawerCartContext)
+  const [thumbsSwiper, setThumbsSwiper] = useState(null)
+  const [quantityOfItem, setQuantityOfItem] = useState(1)
+
+  function increment() {
+    setQuantityOfItem(quantityOfItem + 1)
+  }
+
+  function decrement() {
+    setQuantityOfItem(quantityOfItem - 1)
+  }
 
   const itemInfo = {
     name:
@@ -134,20 +146,6 @@ export default function ProductPageTemplate(props) {
     hovered: props.item.hovered,
   }
 
-  // const { addItem } = useShoppingCart()
-  // const { handleDrawerCartOpen } = useContext(DrawerCartContext)
-  // const { actCurrency } = useContext(CurrencyContext)
-  // const [thumbsSwiper, setThumbsSwiper] = useState(null)
-  // const [quantityOfItem, setQuantityOfItem] = useState(1)
-
-  // function increment() {
-  //   setQuantityOfItem(quantityOfItem + 1)
-  // }
-
-  // function decrement() {
-  //   setQuantityOfItem(quantityOfItem - 1)
-  // }
-
   console.log("DATA:", itemInfo)
 
   return (
@@ -157,9 +155,7 @@ export default function ProductPageTemplate(props) {
       <Header />
       <Container maxWidth="md" className={classes.contentWrapper} id="wrapper">
         <h1>{itemInfo.name}</h1>
-        {/*  
-     
-     
+
         <Hidden smDown id="big">
           <Grid container spacing={0}>
             <Grid item md={6}>
@@ -172,7 +168,7 @@ export default function ProductPageTemplate(props) {
                     <MainSwiper
                       thumbsSwiper={thumbsSwiper}
                       setThumbsSwiper={setThumbsSwiper}
-                      data={props.data}
+                      data={itemInfo}
                     />
                   </SRLWrapper>
                 </Grid>
@@ -180,7 +176,7 @@ export default function ProductPageTemplate(props) {
                   <ThumbsSwiper
                     thumbsSwiper={thumbsSwiper}
                     setThumbsSwiper={setThumbsSwiper}
-                    data={props.data}
+                    data={itemInfo}
                   />
                 </Grid>
               </Grid>
@@ -188,15 +184,15 @@ export default function ProductPageTemplate(props) {
             <Grid item md={6}>
               Price:{" "}
               {formatCurrencyString({
-                value: parseInt(ItemInfo.price),
-                currency: ItemInfo.currency,
+                value: parseInt(itemInfo.price),
+                currency: itemInfo.currency,
               })}{" "}
               <br /> <br />
               <Counter
                 incrementItem={increment}
                 decrementItem={decrement}
                 quantity={quantityOfItem}
-                sku={ItemInfo}
+                sku={itemInfo}
               />{" "}
               <br /> <br />
               <Button
@@ -204,7 +200,7 @@ export default function ProductPageTemplate(props) {
                 size="small"
                 color="primary"
                 onClick={() => {
-                  addItem(ItemInfo, quantityOfItem)
+                  addItem(itemInfo, quantityOfItem)
                   handleDrawerCartOpen()
                 }}
               >
@@ -237,6 +233,16 @@ export default function ProductPageTemplate(props) {
             </Grid>
           </Grid>
         </Hidden>
+        {/*  
+     
+     
+       
+         
+
+
+
+
+
         <Hidden mdUp id="little">
           <MainSwiper
             thumbsSwiper={thumbsSwiper}

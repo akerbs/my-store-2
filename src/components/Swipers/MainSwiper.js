@@ -1,6 +1,5 @@
-import React, { useState } from "react"
+import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
-import Img from "gatsby-image"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 const useStyles = makeStyles(theme => ({
@@ -32,22 +31,13 @@ export default function MainSwiper(props) {
       thumbs={{ swiper: props.thumbsSwiper }}
     >
       <SwiperSlide>
-        <Img
-          fluid={props.data.img1.childImageSharp.fluid}
-          alt="Funny bunny 1"
-        />
+        <img src={props.data.firstImg} alt="Funny bunny 1" />
       </SwiperSlide>
       <SwiperSlide>
-        <Img
-          fluid={props.data.img2.childImageSharp.fluid}
-          alt="Funny bunny 2"
-        />
+        <img src={props.data.scndImg} alt="Funny bunny 2" />
       </SwiperSlide>
       <SwiperSlide>
-        <Img
-          fluid={props.data.img3.childImageSharp.fluid}
-          alt="Funny bunny 3"
-        />
+        <img src={props.data.firstImg} alt="Funny bunny 3" />
       </SwiperSlide>
     </Swiper>
   )
