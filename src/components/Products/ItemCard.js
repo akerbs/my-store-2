@@ -43,18 +43,15 @@ const useStyles = makeStyles({
   },
   img: {
     width: "100%",
-    // transition: "1s",
-    // "&:hover": {
-    //   transform: "scale(1.2)",
-    // },
+    transition: "1s",
+    "&:hover": {
+      transform: "scale(1.2)",
+    },
   },
 })
 
 export default function (props) {
   const classes = useStyles()
-  // console.log("SKU:", props.sku)
-  const { actCurrency } = useContext(CurrencyContext)
-  const { actLanguage } = useContext(LanguageContext)
   const { addItem } = useShoppingCart()
   const { handleDrawerCartOpen } = useContext(DrawerCartContext)
 
