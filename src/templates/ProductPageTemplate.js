@@ -28,7 +28,7 @@ import Button from "@material-ui/core/Button"
 import { DrawerCartContext } from "../context/DrawerCartContext"
 import { CurrencyContext } from "../components/layout"
 import { LanguageContext } from "../components/layout"
-import Counter from "../components/Cart/Counter"
+import Counter from "../components/Counter"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,7 +72,7 @@ const lightboxCallbacks = {
   },
 }
 
-export default function ProductPageTemplate(props) {
+function ProductPageTemplate(props) {
   const classes = useStyles()
   const { actCurrency } = useContext(CurrencyContext)
   const { actLanguage } = useContext(LanguageContext)
@@ -154,8 +154,6 @@ export default function ProductPageTemplate(props) {
       <CssBaseline />
       <Header />
       <Container maxWidth="md" className={classes.contentWrapper} id="wrapper">
-        <h1>{itemInfo.name}</h1>
-
         <Hidden smDown id="big">
           <Grid container spacing={0}>
             <Grid item md={6}>
@@ -182,18 +180,18 @@ export default function ProductPageTemplate(props) {
               </Grid>
             </Grid>
             <Grid item md={6}>
-              Price:{" "}
+              <h1>{itemInfo.name}</h1>
               {formatCurrencyString({
-                value: parseInt(itemInfo.price),
                 currency: itemInfo.currency,
-              })}{" "}
+                value: parseInt(itemInfo.price),
+              })}
               <br /> <br />
               <Counter
                 incrementItem={increment}
                 decrementItem={decrement}
                 quantity={quantityOfItem}
                 sku={itemInfo}
-              />{" "}
+              />
               <br /> <br />
               <Button
                 variant="contained"
@@ -233,35 +231,25 @@ export default function ProductPageTemplate(props) {
             </Grid>
           </Grid>
         </Hidden>
-        {/*  
-     
-     
-       
-         
-
-
-
-
 
         <Hidden mdUp id="little">
           <MainSwiper
             thumbsSwiper={thumbsSwiper}
             setThumbsSwiper={setThumbsSwiper}
-            data={props.data}
+            data={itemInfo}
           />
           <br /> <br />
           <Container>
-            Price:{" "}
             {formatCurrencyString({
-              value: parseInt(ItemInfo.price),
-              currency: ItemInfo.currency,
-            })}{" "}
+              currency: itemInfo.currency,
+              value: parseInt(itemInfo.price),
+            })}
             <br />
             <Button
               size="small"
               color="primary"
               onClick={() => {
-                addItem(ItemInfo)
+                addItem(itemInfo, quantityOfItem)
                 handleDrawerCartOpen()
               }}
             >
@@ -290,15 +278,13 @@ export default function ProductPageTemplate(props) {
             dolor. Dolorum reprehenderit ex libero earum!
           </Container>
         </Hidden>
-     
-      */}
       </Container>
       <Footer />
     </div>
   )
 }
 
-// ProductPageTemplate.propTypes = {
-//   width: PropTypes.oneOf(["lg", "md", "sm", "xl", "xs"]).isRequired,
-// }
-// export default withWidth()(ProductPageTemplate)
+ProductPageTemplate.propTypes = {
+  width: PropTypes.oneOf(["lg", "md", "sm", "xl", "xs"]).isRequired,
+}
+export default withWidth()(ProductPageTemplate)
