@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React from "react"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import IconButton from "@material-ui/core/IconButton"
 import CloseIcon from "@material-ui/icons/Close"
@@ -9,13 +9,9 @@ import Paper from "@material-ui/core/Paper"
 import Typography from "@material-ui/core/Typography"
 import ButtonBase from "@material-ui/core/ButtonBase"
 import Divider from "@material-ui/core/Divider"
-import { Link, navigate } from "gatsby"
+import { navigate } from "gatsby"
 import Slide from "@material-ui/core/Slide"
 import Fade from "@material-ui/core/Fade"
-// import { LanguageContext } from "../../context/LanguageContext"
-import { LanguageContext } from "../layout"
-
-// import { ItemName, ItemDescription, OldPrice, ImgLocal } from "../Products/DB"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,10 +41,8 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const CartItem = props => {
-  console.log("IN CART:", props)
+export default function CartItem(props) {
   const classes = useStyles()
-  const { actLanguage } = useContext(LanguageContext)
 
   const LinkToProductPage =
     props.sku.productId === "prod_HqQT1Nni7ovIFj"
@@ -76,17 +70,11 @@ const CartItem = props => {
                       }}
                       className={classes.imgBtn}
                     >
-                      {/* <Link
-                        to={`/products/${props.sku.name}`}
-                        style={{ textDecoration: "none" }}
-                      > */}
                       <img
                         className={classes.img}
                         src={props.sku.firstImg}
                         alt={props.sku.name}
                       />
-
-                      {/* </Link> */}
                     </ButtonBase>
                   </Grid>
                   <Grid
@@ -119,7 +107,6 @@ const CartItem = props => {
                     </Grid>
                     <Grid item>
                       <Typography variant="subtitle1">
-                        {" "}
                         <IconButton
                           size="small"
                           onClick={() => props.removeItem(props.sku.sku)}
@@ -140,5 +127,3 @@ const CartItem = props => {
     </>
   )
 }
-
-export default CartItem

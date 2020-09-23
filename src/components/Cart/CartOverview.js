@@ -5,10 +5,8 @@ import CartItem from "./CartItem"
 import { makeStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
-// import Coupon from "./Coupon"
 import Slide from "@material-ui/core/Slide"
 import Fade from "@material-ui/core/Fade"
-// import { LanguageContext } from "../../context/LanguageContext"
 import { LanguageContext } from "../../components/layout"
 
 const useStyles = makeStyles(theme => ({
@@ -18,11 +16,11 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Cart = props => {
+export default function Cart(props) {
   const classes = useStyles()
   const [loading, setLoading] = useState(false)
   const { actLanguage } = useContext(LanguageContext)
-  /* Gets the totalPrice and a method for redirecting to stripe */
+
   const {
     incrementItem,
     decrementItem,
@@ -34,12 +32,11 @@ const Cart = props => {
     redirectToCheckout,
   } = useShoppingCart()
 
-  console.log(cartDetails)
+  console.log("cartDetails:", cartDetails)
 
   return (
     <div>
       <CssBaseline />
-
       <div>
         {Object.keys(cartDetails).map((item, idx) => {
           const cartItem = cartDetails[item]
@@ -61,19 +58,7 @@ const Cart = props => {
         <Slide in={props.open} timeout={1000} direction="up">
           <div>
             <Fade in={props.open} timeout={2000}>
-              <Typography
-                variant="body2"
-                align="center"
-                color="textSecondary"
-                // className={(clsx(open && classes.hide), classes.closeDrawerBtn)}
-                // className={clsx(
-                //   classes.byCloseDrawer,
-                //   props.open && classes.byOpenDrawer
-                // )}
-                // className={clsx(classes.byCloseDrawer, {
-                //   [classes.byOpenDrawer]: props.open,
-                // })}
-              >
+              <Typography variant="body2" align="center" color="textSecondary">
                 {actLanguage === "DEU"
                   ? "Einkaufswagen ist leer..."
                   : actLanguage === "RUS"
@@ -87,7 +72,6 @@ const Cart = props => {
         </Slide>
       ) : (
         <>
-          {/* <Coupon /> */}
           <Slide in={props.open} timeout={1000} direction="up">
             <div>
               <Fade in={props.open} timeout={2000}>
@@ -150,5 +134,3 @@ const Cart = props => {
     </div>
   )
 }
-
-export default Cart

@@ -21,6 +21,12 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: ["Bebas", "Poppins", "sans-serif"].join(","),
     fontSize: 14,
+    body1bold: {
+      fontWeight: "bold",
+    },
+    body2bold: {
+      fontWeight: "bold",
+    },
     // "fontWeightLight": 300,
     // "fontWeightRegular": 400,
     // "fontWeightMedium": 500
