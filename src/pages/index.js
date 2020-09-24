@@ -19,6 +19,7 @@ import Slide from "@material-ui/core/Slide"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 import inView from "in-view"
+import SubscribeWindow from "../components/SubscribeWindow"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,6 +39,33 @@ export default function IndexPage(props) {
   const { actCurrency } = useContext(CurrencyContext)
   const [show1, setShow1] = useState(false)
   const [show2, setShow2] = useState(false)
+  const [openSubscribeWindow, setOpenSubscribeWindow] = useState(false)
+
+  //   // this is the first time
+  // if (! localStorage.noFirstVisit) {
+  //   // show the element
+  //   // and do the animation you want
+  //   document.getElementById('first').style.display = 'block';
+
+  //   // check this flag for escaping this if block next time
+  //   localStorage.noFirstVisit = "1";
+  // }
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      handleOpenSubscribeWindow()
+      localStorage.noFirstVisit = true
+    }, 3000)
+
+    return () => clearTimeout(timeout)
+  }, [!localStorage.noFirstVisit])
+
+  const handleOpenSubscribeWindow = () => {
+    setOpenSubscribeWindow(true)
+  }
+  const handleCloseSubscribeWindow = () => {
+    setOpenSubscribeWindow(false)
+  }
 
   function startInView1() {
     setShow1(true)
@@ -138,6 +166,10 @@ export default function IndexPage(props) {
       </Container>
 
       <Footer />
+      <SubscribeWindow
+        open={openSubscribeWindow}
+        onClose={handleCloseSubscribeWindow}
+      />
     </div>
   )
 }
