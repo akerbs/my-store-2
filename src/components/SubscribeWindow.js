@@ -100,7 +100,11 @@ export default function Impressum(props) {
   return (
     <Modal
       className={classes.modalWrapper}
-      onClose={props.onClose}
+      // onClose={props.onClose}
+      onClose={e => {
+        props.onClose(e)
+        props.visited(true)
+      }}
       open={props.open}
     >
       <Paper className={classes.paper}>
