@@ -48,9 +48,6 @@ export default function IndexPage(props) {
   // setTimeout(() => {
   //   handleOpenSubscribeWindow()
   // }, 3000)
-  const handleSetVisited = () => {
-    setVisited(true)
-  }
 
   useEffect(() => {
     if (
@@ -76,7 +73,7 @@ export default function IndexPage(props) {
   }
   const handleCloseSubscribeWindow = () => {
     setOpenSubscribeWindow(false)
-    handleSetVisited(true)
+    setVisited(true)
   }
 
   function startInView1() {
@@ -181,7 +178,6 @@ export default function IndexPage(props) {
       <SubscribeWindow
         open={openSubscribeWindow}
         onClose={handleCloseSubscribeWindow}
-        visited={handleSetVisited}
       />
     </div>
   )
