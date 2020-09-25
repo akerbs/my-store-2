@@ -13,7 +13,7 @@ import SubscribeForm from "./SubscribeForm"
 
 const window = require("global/window")
 
-const modalWindowWidth = window.innerWidth <= 599 ? "100vw" : "50vw"
+const modalWindowWidth = window.innerWidth <= 1200 ? "100vw" : "50vw"
 const boxMarginTop = window.innerWidth <= 599 ? "3%" : "5%"
 
 const font1MarginBotom = window.innerWidth <= 599 ? "3%" : "8%"
