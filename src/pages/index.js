@@ -45,9 +45,9 @@ export default function IndexPage(props) {
 
   // console.log("COOKIES:", document.cookie.indexOf("visited"))
 
-  setTimeout(() => {
-    handleOpenSubscribeWindow()
-  }, 3000)
+  // setTimeout(() => {
+  //   handleOpenSubscribeWindow()
+  // }, 3000)
 
   useEffect(() => {
     if (document.cookie.indexOf("visited") >= 0) {
