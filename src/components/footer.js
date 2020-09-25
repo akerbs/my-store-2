@@ -17,6 +17,9 @@ import payCard7 from "../images/payCards/applePay.svg"
 import inView from "in-view"
 import Slide from "@material-ui/core/Slide"
 import SubscribeFormFooter from "./SubscribeFormFooter"
+const window = require("global/window")
+
+const footerMarginTop = window.innerWidth <= 599 ? "20%" : "5%"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: "100%",
   },
   content: {
-    marginTop: 100,
+    marginTop: footerMarginTop,
     color: "black",
   },
 

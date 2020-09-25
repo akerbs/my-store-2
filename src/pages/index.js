@@ -61,6 +61,7 @@ export default function IndexPage(props) {
         handleOpenSubscribeWindow()
       }, 5000)
     }
+    return () => clearTimeout()
   })
 
   const handleOpenSubscribeWindow = () => {
