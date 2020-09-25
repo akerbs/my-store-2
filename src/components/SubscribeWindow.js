@@ -138,7 +138,10 @@ export default function Impressum(props) {
                 position: "fixed",
               }}
               // onClick={stop}
-              onClick={props.onClose}
+              onClick={() => {
+                props.onClose()
+                props.visited(true)
+              }}
             >
               <HighlightOffIcon
                 style={{

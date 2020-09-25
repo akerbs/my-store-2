@@ -42,24 +42,29 @@ export default function IndexPage(props) {
   const [show1, setShow1] = useState(false)
   const [show2, setShow2] = useState(false)
   const [openSubscribeWindow, setOpenSubscribeWindow] = useState(false)
-
+  const [visited, setVisited] = useState(false)
   // console.log("COOKIES:", document.cookie.indexOf("visited"))
 
   // setTimeout(() => {
   //   handleOpenSubscribeWindow()
   // }, 3000)
+  const handleSetVisited = () => {
+    setVisited(true)
+  }
 
   useEffect(() => {
     if (document.cookie.indexOf("visited") >= 0) {
+      handleSetVisited(true)
       console.log(
         "Already visited",
         document.cookie.indexOf("visited"),
         "times"
       )
     } else {
-      setTimeout(() => {
-        handleOpenSubscribeWindow()
-      }, 5000)
+      !visited &&
+        setTimeout(() => {
+          handleOpenSubscribeWindow()
+        }, 5000)
     }
     return () => clearTimeout()
   })
@@ -173,6 +178,7 @@ export default function IndexPage(props) {
       <SubscribeWindow
         open={openSubscribeWindow}
         onClose={handleCloseSubscribeWindow}
+        visited={handleSetVisited}
       />
     </div>
   )
