@@ -61,12 +61,19 @@ export default function IndexPage(props) {
         "times"
       )
     } else {
+      const expiry = new Date()
+      expiry.setTime(expiry.getTime() + 10 * 60 * 1000) // Ten minutes
+
+      document.cookie = "visited=yes; expires=" + expiry.toUTCString()
+
+      alert("this is your first time")
+
       const timer = setTimeout(() => {
         handleOpenSubscribeWindow()
       }, 5000)
       return () => clearTimeout(timer)
     }
-  })
+  }, [])
 
   const handleOpenSubscribeWindow = () => {
     setOpenSubscribeWindow(true)
