@@ -53,7 +53,11 @@ export default function IndexPage(props) {
   }
 
   useEffect(() => {
-    if (document.cookie.indexOf("visited") >= 0 || visited) {
+    if (
+      document.cookie.indexOf("visited") >= 0 ||
+      visited ||
+      (document.cookie.indexOf("visited") >= 0 && visited)
+    ) {
       console.log(
         "Already visited",
         document.cookie.indexOf("visited"),
