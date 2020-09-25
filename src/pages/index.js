@@ -53,20 +53,18 @@ export default function IndexPage(props) {
   }
 
   useEffect(() => {
-    if (document.cookie.indexOf("visited") >= 0) {
-      handleSetVisited(true)
+    if (document.cookie.indexOf("visited") >= 0 || visited) {
       console.log(
         "Already visited",
         document.cookie.indexOf("visited"),
         "times"
       )
     } else {
-      !visited &&
-        setTimeout(() => {
-          handleOpenSubscribeWindow()
-        }, 5000)
+      const timer = setTimeout(() => {
+        handleOpenSubscribeWindow()
+      }, 5000)
+      return () => clearTimeout(timer)
     }
-    return () => clearTimeout()
   })
 
   const handleOpenSubscribeWindow = () => {
@@ -74,6 +72,7 @@ export default function IndexPage(props) {
   }
   const handleCloseSubscribeWindow = () => {
     setOpenSubscribeWindow(false)
+    handleSetVisited(true)
   }
 
   function startInView1() {

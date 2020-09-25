@@ -100,11 +100,11 @@ export default function Impressum(props) {
   return (
     <Modal
       className={classes.modalWrapper}
-      // onClose={props.onClose}
-      onClose={e => {
-        props.onClose(e)
-        props.visited(true)
-      }}
+      onClose={props.onClose}
+      // onClose={e => {
+      //   props.onClose(e)
+      //   props.visited(true)
+      // }}
       open={props.open}
     >
       <Paper className={classes.paper}>
@@ -141,11 +141,11 @@ export default function Impressum(props) {
                 zIndex: 9999,
                 position: "fixed",
               }}
-              // onClick={stop}
-              onClick={e => {
-                props.onClose(e)
-                props.visited(true)
-              }}
+              onClick={props.onClose}
+              // onClick={e => {
+              //   props.onClose(e)
+              //   props.visited(true)
+              // }}
             >
               <HighlightOffIcon
                 style={{
