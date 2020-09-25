@@ -21,6 +21,8 @@ import Button from "@material-ui/core/Button"
 import inView from "in-view"
 import SubscribeWindow from "../components/SubscribeWindow"
 
+const document = require("global/document")
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -41,24 +43,25 @@ export default function IndexPage(props) {
   const [show2, setShow2] = useState(false)
   const [openSubscribeWindow, setOpenSubscribeWindow] = useState(false)
 
-  //   // this is the first time
-  // if (! localStorage.noFirstVisit) {
-  //   // show the element
-  //   // and do the animation you want
-  //   document.getElementById('first').style.display = 'block';
+  console.log("COOKIES:", document.cookie.indexOf("visited"))
 
-  //   // check this flag for escaping this if block next time
-  //   localStorage.noFirstVisit = "1";
-  // }
+  setTimeout(() => {
+    handleOpenSubscribeWindow()
+  }, 3000)
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      handleOpenSubscribeWindow()
-      localStorage.noFirstVisit = true
-    }, 3000)
-
-    return () => clearTimeout(timeout)
-  }, [!localStorage.noFirstVisit])
+  // useEffect(() => {
+  //   if (document.cookie.indexOf("visited") >= 0) {
+  //     // console.log(
+  //     //   "Already visited",
+  //     //   document.cookie.indexOf("visited"),
+  //     //   "times"
+  //     // )
+  //   } else {
+  //     setTimeout(() => {
+  //       handleOpenSubscribeWindow()
+  //     }, 5000)
+  //   }
+  // })
 
   const handleOpenSubscribeWindow = () => {
     setOpenSubscribeWindow(true)

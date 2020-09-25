@@ -13,9 +13,10 @@ const theme = createMuiTheme({
       contrastText: "#fff",
     },
   },
+
   third: {
-    backgroundColor: "rgba(249,234,207)",
-    color: "rgba(133,26,29)",
+    backgroundColor: "rgba(255,255,255)",
+    color: "rgba(0,0,0)",
   },
 
   typography: {
@@ -27,10 +28,23 @@ const theme = createMuiTheme({
     body2bold: {
       fontWeight: "bold",
     },
+    // fontResp: {
+    //   fontSize: 3,
+    // },
     // "fontWeightLight": 300,
     // "fontWeightRegular": 400,
     // "fontWeightMedium": 500
   },
+  // overrides: {
+
+  //   MuiButton: {
+
+  //     text: {
+  //       // Some CSS
+  //       color: 'tomato',
+  //     },
+  //   },
+  // },
 })
 
 export default theme

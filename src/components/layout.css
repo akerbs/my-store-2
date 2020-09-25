@@ -1,8 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap");
+
 html {
   font-family: sans-serif;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+  /* -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; */
+  -ms-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
 }
 body {
   margin: 0;
@@ -177,9 +180,20 @@ textarea {
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
+
 ::-webkit-input-placeholder {
   color: inherit;
   opacity: 0.54;
+  font-size: 0.7rem;
+}
+::-moz-placeholder {
+  font-size: 0.7rem;
+}
+:-ms-input-placeholder {
+  font-size: 0.7rem;
+}
+:-moz-placeholder {
+  font-size: 0.7rem;
 }
 ::-webkit-file-upload-button {
   -webkit-appearance: button;
