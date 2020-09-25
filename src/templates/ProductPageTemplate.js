@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react"
-import { graphql } from "gatsby"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import { makeStyles } from "@material-ui/core/styles"
 import SEO from "../components/seo"
@@ -20,7 +19,6 @@ import { SRLWrapper } from "simple-react-lightbox"
 import withWidth from "@material-ui/core/withWidth"
 import Hidden from "@material-ui/core/Hidden"
 import PropTypes from "prop-types"
-
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart"
 import ThumbsSwiper from "../components/Swipers/ThumbsSwiper"
 import MainSwiper from "../components/Swipers/MainSwiper"
@@ -28,7 +26,12 @@ import Button from "@material-ui/core/Button"
 import { DrawerCartContext } from "../context/DrawerCartContext"
 import { CurrencyContext } from "../components/layout"
 import { LanguageContext } from "../components/layout"
-import Counter from "../components/Counter"
+
+import ShareIcon from "@material-ui/icons/Share"
+import Typography from "@material-ui/core/Typography"
+import BreadCrumbs from "../components/BreadCrumbs"
+import Link from "gatsby"
+import Counter from "../components/CounterBig"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,6 +48,12 @@ const useStyles = makeStyles(theme => ({
       paddingLeft: 0,
       paddingRight: 0,
     },
+  },
+  btn: {
+    width: 225,
+    minWidth: 225,
+    maxWidth: 225,
+    fontSize: 15,
   },
 }))
 
@@ -76,10 +85,17 @@ function ProductPageTemplate(props) {
   const classes = useStyles()
   const { actCurrency } = useContext(CurrencyContext)
   const { actLanguage } = useContext(LanguageContext)
-  const { addItem } = useShoppingCart()
+  const {
+    addItem,
+    redirectToCheckout,
+    incrementItem,
+    decrementItem,
+    removeItem,
+  } = useShoppingCart()
   const { handleDrawerCartOpen } = useContext(DrawerCartContext)
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const [quantityOfItem, setQuantityOfItem] = useState(1)
+  const [loading, setLoading] = useState(false)
 
   function increment() {
     setQuantityOfItem(quantityOfItem + 1)
@@ -146,7 +162,19 @@ function ProductPageTemplate(props) {
     hovered: props.item.hovered,
   }
 
+  function handleClick(event) {
+    event.preventDefault()
+    console.info("You clicked a breadcrumb.")
+  }
+
   console.log("DATA:", itemInfo)
+  // console.log(
+  //   "???:",
+  //   formatCurrencyString({
+  //     currency: itemInfo.currency,
+  //     value: parseInt(itemInfo.price),
+  //   })
+  // )
 
   return (
     <div className={classes.root} id="root">
@@ -180,6 +208,7 @@ function ProductPageTemplate(props) {
               </Grid>
             </Grid>
             <Grid item md={6}>
+              <BreadCrumbs data={itemInfo} />
               <h1>{itemInfo.name}</h1>
               {formatCurrencyString({
                 currency: itemInfo.currency,
@@ -193,17 +222,59 @@ function ProductPageTemplate(props) {
                 sku={itemInfo}
               />
               <br /> <br />
-              <Button
-                variant="contained"
-                size="small"
-                color="primary"
-                onClick={() => {
-                  addItem(itemInfo, quantityOfItem)
-                  handleDrawerCartOpen()
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  borderRadius: "8px",
                 }}
               >
-                ADD TO CART
-              </Button>
+                <Button
+                  className={classes.btn}
+                  variant="contained"
+                  color="secondary"
+                  // className={classes.btn1}
+                  onClick={() => {
+                    addItem(itemInfo, quantityOfItem)
+                    handleDrawerCartOpen()
+                  }}
+                >
+                  {actLanguage === "DEU"
+                    ? "in Warenkorb legen"
+                    : actLanguage === "RUS"
+                    ? "добавить в корзину"
+                    : actLanguage === "ENG"
+                    ? "add to cart"
+                    : null}
+                </Button>
+                <Button
+                  className={classes.btn}
+                  variant="contained"
+                  color="primary"
+                  disabled={loading}
+                  onClick={e => {
+                    addItem(itemInfo, quantityOfItem)
+                    setLoading(true)
+                    redirectToCheckout(e)
+                  }}
+                >
+                  {loading
+                    ? actLanguage === "DEU"
+                      ? "Wird geladen..."
+                      : actLanguage === "RUS"
+                      ? "Загрузка ..."
+                      : actLanguage === "ENG"
+                      ? "Loading..."
+                      : null
+                    : actLanguage === "DEU"
+                    ? "Kaufen jetzt"
+                    : actLanguage === "RUS"
+                    ? "Купить сейчас"
+                    : actLanguage === "ENG"
+                    ? "Buy it now"
+                    : null}
+                </Button>
+              </div>
               <p>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                 Doloribus non optio unde quisquam aspernatur praesentium dolorum
@@ -232,7 +303,7 @@ function ProductPageTemplate(props) {
           </Grid>
         </Hidden>
 
-        <Hidden mdUp id="little">
+        {/* <Hidden mdUp id="little">
           <MainSwiper
             thumbsSwiper={thumbsSwiper}
             setThumbsSwiper={setThumbsSwiper}
@@ -277,7 +348,7 @@ function ProductPageTemplate(props) {
             adipisci, ut, at quibusdam ex sapiente facilis mollitia incidunt
             dolor. Dolorum reprehenderit ex libero earum!
           </Container>
-        </Hidden>
+        </Hidden> */}
       </Container>
       <Footer />
     </div>

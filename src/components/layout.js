@@ -27,7 +27,8 @@ export const LanguageContext = createContext()
 
 function Layout({ children }) {
   const classes = useStyles()
-  const [actCurrency, setActCurrency] = useState("")
+
+  const [actCurrency, setActCurrency] = useState("EUR")
   const [actLanguage, setActLanguage] = useState("")
 
   const data = useStaticQuery(graphql`
@@ -53,18 +54,17 @@ function Layout({ children }) {
       } else {
         setActLanguage("ENG")
       }
-
-      detectCurrency()
     }
   }, [])
 
-  async function detectCurrency() {
+  useEffect(() => {
     async function getLocation() {
       const response = await fetch("https://ipapi.co/json")
+
       const info = await response.json()
       const countryCode = info.country_code
 
-      ;(await countryCode) == "US"
+      countryCode == "US"
         ? setActCurrency("USD")
         : countryCode == "DE"
         ? setActCurrency("EUR")
@@ -75,7 +75,7 @@ function Layout({ children }) {
       return countryCode
     }
     getLocation().then(countryCode => console.log("COUNTRY CODE:", countryCode))
-  }
+  }, [])
 
   function handleCurrencyChange(event) {
     setActCurrency(event.target.value)

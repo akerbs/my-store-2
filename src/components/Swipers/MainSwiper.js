@@ -26,7 +26,8 @@ export default function MainSwiper(props) {
       direction="horizontal"
       effect="fade"
       loop
-      navigation
+      pagination={{ clickable: true }}
+      // navigation
       className={classes.mainSlider}
       thumbs={{ swiper: props.thumbsSwiper }}
     >
