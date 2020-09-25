@@ -43,25 +43,25 @@ export default function IndexPage(props) {
   const [show2, setShow2] = useState(false)
   const [openSubscribeWindow, setOpenSubscribeWindow] = useState(false)
 
-  console.log("COOKIES:", document.cookie.indexOf("visited"))
+  // console.log("COOKIES:", document.cookie.indexOf("visited"))
 
   setTimeout(() => {
     handleOpenSubscribeWindow()
   }, 3000)
 
-  // useEffect(() => {
-  //   if (document.cookie.indexOf("visited") >= 0) {
-  //     // console.log(
-  //     //   "Already visited",
-  //     //   document.cookie.indexOf("visited"),
-  //     //   "times"
-  //     // )
-  //   } else {
-  //     setTimeout(() => {
-  //       handleOpenSubscribeWindow()
-  //     }, 5000)
-  //   }
-  // })
+  useEffect(() => {
+    if (document.cookie.indexOf("visited") >= 0) {
+      console.log(
+        "Already visited",
+        document.cookie.indexOf("visited"),
+        "times"
+      )
+    } else {
+      setTimeout(() => {
+        handleOpenSubscribeWindow()
+      }, 5000)
+    }
+  })
 
   const handleOpenSubscribeWindow = () => {
     setOpenSubscribeWindow(true)
