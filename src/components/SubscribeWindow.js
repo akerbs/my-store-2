@@ -138,8 +138,8 @@ export default function Impressum(props) {
                 position: "fixed",
               }}
               // onClick={stop}
-              onClick={() => {
-                props.onClose()
+              onClick={e => {
+                props.onClose(e)
                 props.visited(true)
               }}
             >
